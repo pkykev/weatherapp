@@ -11,10 +11,6 @@ citySearch = $(`.me-2`).val()
 
 
 
-
-
-
-
 // fetch(apiUrl2)
 //     .then(function (response) {
 //         return response.json();
@@ -51,12 +47,15 @@ citySearch = $(`.me-2`).val()
 
 
 function fillWeatherData() {
-    let tempNow = testJson.list[0].main.temp
-    $(`.tempNow`).text(`Temp:` + ` ${tempNow}`)
-    let humidityNow = testJson.list[0].main.humidity
-    $(`.humidityNow`).text(`Humidity:` + ` ${humidityNow}`)
-    let windSpeed = testJson.list[0].wind.speed
-    $(`.windSpeed`).text(`Wind Speed:` + ` ${windSpeed} MPH`)
+    for (var i = 0; i < 40; (i += 8 - Math.floor(i/32))) {
+        let tempNow = testJson.list[i].main.temp
+        $(`.tempNow${i}`).text(`Temp:` + ` ${tempNow}`)
+        let humidityNow = testJson.list[i].main.humidity
+        $(`.humidityNow${i}`).text(`Humidity:` + ` ${humidityNow}`)
+        let windSpeed = testJson.list[i].wind.speed
+        $(`.windSpeed${i}`).text(`Wind Speed:` + ` ${windSpeed} MPH`)
+        console.log(i)
+    }
 }
 
 
