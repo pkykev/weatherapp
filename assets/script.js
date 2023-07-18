@@ -7,8 +7,8 @@
 let apiUrl;
 let userInput = ``;
 let apiUrl4;
-let apiUrl2 = `http://api.openweathermap.org/data/2.5/forecast?q=${userInput}&appid=5c31cfeca21bb4b2fcde410d7f059577&units=imperial`
-let apiUrl3 = "http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=5c31cfeca21bb4b2fcde410d7f059577"
+let apiUrl2 = `https://api.openweathermap.org/data/2.5/forecast?q=${userInput}&appid=5c31cfeca21bb4b2fcde410d7f059577&units=imperial`
+let apiUrl3 = "https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=5c31cfeca21bb4b2fcde410d7f059577"
 
 
 function apiSearch() {
@@ -41,7 +41,7 @@ function apiSearch() {
         })
 };
 function setUrlApi() {
-    apiUrl4 = `http://api.openweathermap.org/geo/1.0/direct?q=${userInput}&limit=1&appid=5c31cfeca21bb4b2fcde410d7f059577`
+    apiUrl4 = `https://api.openweathermap.org/geo/1.0/direct?q=${userInput}&limit=1&appid=5c31cfeca21bb4b2fcde410d7f059577`
     fetch(apiUrl4)
         .then(function (response) {
             return response.json()
@@ -50,7 +50,7 @@ function setUrlApi() {
             let lat = response[0].lat
             let lon = response[0].lon
             console.log(lat, lon)
-            apiUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=5c31cfeca21bb4b2fcde410d7f059577&units=imperial`
+            apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=5c31cfeca21bb4b2fcde410d7f059577&units=imperial`
             apiSearch()
             console.log(response)
         })
