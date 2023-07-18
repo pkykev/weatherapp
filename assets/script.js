@@ -1,6 +1,7 @@
 //things to add for resubmit
 //nav bar localstorage saved searches
 //clean all the unused variables and comments
+//add margin to the right side of search button to make it look nicer
 
 
 
