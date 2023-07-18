@@ -27,6 +27,14 @@ function apiSearch() {
                 $(`.humidityNow${i}`).text(`Humidity:` + ` ${humidityNow}`)
                 let windSpeed = response.list[i].wind.speed
                 $(`.windSpeed${i}`).text(`Wind Speed:` + ` ${windSpeed} MPH`)
+                let imageCode = response.list[i].weather[0].icon
+                let imageUrl = `https://openweathermap.org/img/wn/${imageCode}@2x.png`
+                $(`.card-img-top${i}`).attr("src",imageUrl)
+                let currentDateRaw = response.list[i].dt_txt
+                let currentDate = currentDateRaw.split(" ")
+                $(`.card-title${i}`).text(`${currentDate[0]}`)
+                console.log(currentDateRaw)
+                console.log(imageUrl)
                 console.log(i)
             }
 
