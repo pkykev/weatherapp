@@ -1,35 +1,55 @@
-let apiUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=5c31cfeca21bb4b2fcde410d7f059577"
+//things to add for resubmit
+//nav bar localstorage saved searches
+//date on all cards and icons on all cards
 
-let apiUrl2 = "http://api.openweathermap.org/data/2.5/forecast?q=Minneapolis&appid=5c31cfeca21bb4b2fcde410d7f059577&units=imperial"
 
+
+let apiUrl;
+let userInput = ``;
+let apiUrl4;
+let apiUrl2 = `http://api.openweathermap.org/data/2.5/forecast?q=${userInput}&appid=5c31cfeca21bb4b2fcde410d7f059577&units=imperial`
 let apiUrl3 = "http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=5c31cfeca21bb4b2fcde410d7f059577"
 
 
-citySearch = $(`.me-2`).val()
+function apiSearch() {
+    fetch(apiUrl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (response) {
+            console.log(response)
 
 
+            for (var i = 0; i < 40; (i += 8 - Math.floor(i / 32))) {
+                let tempNow = response.list[i].main.temp
+                $(`.tempNow${i}`).text(`Temp:` + ` ${tempNow}`)
+                let humidityNow = response.list[i].main.humidity
+                $(`.humidityNow${i}`).text(`Humidity:` + ` ${humidityNow}`)
+                let windSpeed = response.list[i].wind.speed
+                $(`.windSpeed${i}`).text(`Wind Speed:` + ` ${windSpeed} MPH`)
+                console.log(i)
+            }
+
+        })
+};
+function setUrlApi() {
+    apiUrl4 = `http://api.openweathermap.org/geo/1.0/direct?q=${userInput}&limit=1&appid=5c31cfeca21bb4b2fcde410d7f059577`
+    fetch(apiUrl4)
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function (response) {
+            let lat = response[0].lat
+            let lon = response[0].lon
+            console.log(lat, lon)
+            apiUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=5c31cfeca21bb4b2fcde410d7f059577&units=imperial`
+            apiSearch()
+            console.log(response)
+        })
 
 
-
-// fetch(apiUrl2)
-//     .then(function (response) {
-//         return response.json();
-//     })
-//     .then(function (response) {
-//         console.log(response)
-
-
-//                 let tempNow = response.list[0].main.temp
-//                 $(`.tempNow`).text(`Temp:` + ` ${tempNow}`)
-//                 let humidityNow = response.list[0].main.humidity
-//                 $(`.humidityNow`).text(`Humidity:` + ` ${humidityNow}`)
-//                 let windSpeed = response.list[0].wind.speed
-//                 $(`.windSpeed`).text(`Wind Speed:` + ` ${windSpeed} MPH`)
-
-//         console.log(tempNow)
-
-//     });
-
+    console.log(apiUrl4)
+}
 
 
 
@@ -45,14 +65,22 @@ citySearch = $(`.me-2`).val()
 // }
 // fillWeatherData()
 
+//this is a submit need to remove preventdefault later
+$(`.btn`).on(`click`, function (event) {
+    event.preventDefault()
+    userInput = $(`.form-control`).val()
+    setUrlApi()
+    console.log(userInput)
+    console.log(`imworking`)
+})
 
 function fillWeatherData() {
-    for (var i = 0; i < 40; (i += 8 - Math.floor(i/32))) {
-        let tempNow = testJson.list[i].main.temp
+    for (var i = 0; i < 40; (i += 8 - Math.floor(i / 32))) {
+        let tempNow = response.list[i].main.temp
         $(`.tempNow${i}`).text(`Temp:` + ` ${tempNow}`)
-        let humidityNow = testJson.list[i].main.humidity
+        let humidityNow = reponse.list[i].main.humidity
         $(`.humidityNow${i}`).text(`Humidity:` + ` ${humidityNow}`)
-        let windSpeed = testJson.list[i].wind.speed
+        let windSpeed = response.list[i].wind.speed
         $(`.windSpeed${i}`).text(`Wind Speed:` + ` ${windSpeed} MPH`)
         console.log(i)
     }
@@ -1528,5 +1556,5 @@ let testJson = {
         "sunset": 1689558989
     }
 }
-fillWeatherData()
+// fillWeatherData()
 console.log(testJson)
